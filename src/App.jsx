@@ -1,17 +1,35 @@
-import Loadable from 'react-loadable';
-import Loading from './components/Loading';
-
-// Create a loadable component using react-loadable
-const LoadableComponent = Loadable({
-  loader: () => import('./components/MyComponent'),
-  loading: Loading, // The component to show while loading
-});
+/*eslint-disable*/
+import React, { useState, useEffect } from 'react';
+import LoadingComponent from './components/LoadingComponent';
+import BasicDynamicComponent from './components/BasicDynamicComponent';
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate a loading delay
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer); // Cleanup the timer
+  }, []);
+
   return (
-    <div>
-      <h1>React Loadable Example</h1>
-      <LoadableComponent />
+    <div className='App'>
+      {isLoading ? (
+        <LoadingComponent />
+      ) : (
+        <div className='content'>
+          <h1>Welcome to My Application</h1>
+          <p>The content has successfully loaded!</p>
+        </div>
+      )}
+      <div>
+        <h1>React Loadable Example</h1>
+        <p>Below is a dynamically loaded component:</p>
+        <BasicDynamicComponent />
+      </div>
     </div>
   );
 };
