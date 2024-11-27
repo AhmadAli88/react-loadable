@@ -5,6 +5,7 @@ import Posts from './components/Posts';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import MySkeleton from './components/SkeletonLoader';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { LoadingSpinner } from './components/Basic/LoadingSpinner';
 
 // Dynamically import HeavyComponent
 const HeavyComponent = React.lazy(() => import('./components/HeavyComponent'));
@@ -16,6 +17,11 @@ const Footer = React.lazy(() => import('./components/Footer'));
 // Lazy-load pages for routes
 const HomePage = React.lazy(() => import('./components/HomePage'));
 const AboutPage = React.lazy(() => import('./components/AboutPage'));
+
+// Lazy load components for BASIC FOLDER
+const BasicHeader = React.lazy(() => import('./components/Basic/Header'));
+const BasicContent = React.lazy(() => import('./components/Basic/Content'));
+const BasicFooter = React.lazy(() => import('./components/Basic/Footer'));
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -83,6 +89,20 @@ const App = () => {
           />
         </Routes>
       </Router>
+
+      <div className='min-h-screen flex flex-col'>
+        <Suspense fallback={<LoadingSpinner />}>
+          <BasicHeader />
+        </Suspense>
+
+        <Suspense fallback={<LoadingSpinner />}>
+          <BasicContent />
+        </Suspense>
+
+        <Suspense fallback={<LoadingSpinner />}>
+          <BasicFooter />
+        </Suspense>
+      </div>
     </div>
   );
 };
