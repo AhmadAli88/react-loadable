@@ -12,7 +12,9 @@
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-loadable": "^5.5.0"
+    "react-loadable": "^5.5.0",
+    "react-loading-skeleton": "^3.5.0",
+    "react-query": "^3.39.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
